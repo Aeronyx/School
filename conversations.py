@@ -52,4 +52,3 @@ elif pets == 'n':
 # Incorrect entry
 else:
     print('You didn\'t follow instructions! Try again.')
-newtest = 1
