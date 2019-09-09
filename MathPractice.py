@@ -8,7 +8,6 @@ import sys
 from math import sin, cos, sqrt
 
 """ 1. Trying to compute F = (Gm(1)m(2))/r^2 """
-#   Student attempt:
 
 # Randomly assigned values
 G = 2
@@ -16,14 +15,13 @@ mass1 = 5
 mass2 = 11
 radius = 4
 
+# Incorrect Equation
 force = G * mass1 * mass2 / radius * radius # Expected 6.875; returns 110
 
 # Fix:
 forceFix1 = (G * mass1 * mass2) / radius**2
 
 forceFix2 = G * mass1 * mass2 / (radius * radius)
-
-print(forceFix1, forceFix2)
 
 """ 2. Compose a program that uses math.sin() and math.cos() 
 to check that the value of cos^2(θ) + sin^2(θ) is approximately 
