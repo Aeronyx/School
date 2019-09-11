@@ -35,3 +35,30 @@ y = float(sys.argv[4])
 z = float(sys.argv[5])
 
 print(bool((x < y < z)) or (x > y > z))
+
+"""
+3. Compose a program that accepts a date as input and writes 
+the day of the week on which that date falls. Your program 
+should accept three command-line arguments: m (month), d (day), 
+and y (year). For m use 1 for January, 2 for February, and 
+so forth. For output write 0 for Sunday, 1 for Monday, 2 for 
+Tuesday, and so forth. Use the following formulas for the Gregorian Calendar:
+"""
+
+
+
+m = int(sys.argv[6])
+d = int(sys.argv[7])
+y = int(sys.argv[8])
+
+# year = y - (14 - m)/12
+# x = year + year/4 - year/100+ year/400 # Leap Year Check
+# month = m + 12 *((14 - m)/12) - 2
+# print((d + x + (31*month)/12) % 7)
+year = y - (14 - m)/12
+print(year)
+x = year + year/4 - year/100+ year/400 # Leap Year Check
+print(x)
+month = m + 12 *((14 - m)/12) - 2
+print(month)
+print((d + x + (31*month)/12) % 7)
