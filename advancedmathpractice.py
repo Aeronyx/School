@@ -45,21 +45,11 @@ so forth. For output write 0 for Sunday, 1 for Monday, 2 for
 Tuesday, and so forth. Use the following formulas for the Gregorian Calendar:
 """
 
-# The given math is wrong?
-
 m = int(sys.argv[6])
 d = int(sys.argv[7])
 y = int(sys.argv[8])
 
-# year = y - (14 - m)/12
-# x = year + year/4 - year/100+ year/400 # Leap Year Check
-# month = m + 12 *((14 - m)/12) - 2
-# print((d + x + (31*month)/12) % 7)
-
-year = y - (14 - m)/12 # (14-m)/12 will never be zero, because there is no 14th month
-print(year)
-x = year + year/4 - year/100+ year/400 # Leap Year Check
-print(x)
-month = m + 12 *((14 - m)/12) - 2
-print(month)
-print((d + x + (31*month)/12) % 7)
+year = y - (14 - m)//12
+x = year + year//4 - year//100+ year//400 # Leap Year Check
+month = m + 12 *((14 - m)//12) - 2
+print((d + x + (31*month)//12) % 7) # Prints 0-7 for day of week
