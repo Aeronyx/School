@@ -23,6 +23,8 @@ print('\n\nWelcome to a text-based Hangman game! Please either \
     type a word you\'d like a friend to guess, or just press \'Enter\' to \
     have the computer generate a word for you.')
 userWord = input('\n')
+turnCount = 0
+answerWord = ''
 
 if userWord == '':
     # Generate Random English Word
@@ -35,11 +37,16 @@ elif userWord > '':
     answerWord = userWord.strip().lower()
     print('We\'ll use that word! Let\'s begin.')
 
-turnCount = 0
+board = ['_'] * len(answerWord)
 
 def turn():
-    while turnCount <= 10:
+    global turnCount
+    global answerWord
+    global board
+
+    while turnCount <= 9:
         turnCount += 1
+        print('theBoard')
         if turnCount > 3:
             print('Would you like to guess the word? If you\'re wrong, it will cost you a turn!')
 
@@ -52,6 +59,14 @@ def turn():
                 print('That isn\'t a valid character. Please try again.')
 
         char = char[0].lower()
-        if char in answerWord:
-            print('Good guess! We\'ll add that to the list.')
-
+        indexChecker = 0
+        for i in range(len(answerWord)):
+            if char == i:
+                board[indexChecker] = char
+                print('Good Guess! %s\'s have been revealed.' % (char))
+            else:
+                print('Sorry! That letter isn\'t in the word. You have %s more turn(s) left.' % (9 - turnCount))
+            indexChecker += 1
+        # if char in answerWord:
+        #     print('Good guess! We\'ll add that to the list.')
+turn()
