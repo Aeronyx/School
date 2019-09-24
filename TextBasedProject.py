@@ -2,7 +2,7 @@
 # Name: George Trammell
 # Start Date: 9/12/19
 # End Date: 
-# Desc: Problems: mistake count can go below zero, user can't guess word on last mistake, corret letters shouldn't take off mistakes
+# Desc:
 # Sources: None
 # On my honor, I have neither given nor received unauthorized aid.
 
@@ -16,7 +16,7 @@ wordList = wordList.split()
 
 print('\n' * 5)
 print(' Hangman! '.center(80, '*'))
-print('\n\n\n\nWelcome to a text-based Hangman game! Please either type a word you\'d like a friend to guess,\nor just press \'Enter\' or \'Return\' to have the computer generate a word for you.')
+print('\n\nWelcome to a text-based Hangman game! Please either type a word you\'d like a friend to guess,\nor just press \'Enter\' or \'Return\' to have the computer generate a word for you.')
 userWord = input('\n')
 mistakeCount = 10
 answerWord = ''
@@ -42,16 +42,23 @@ sleep(1)
 print('Here\'s the board for your word. It has %s letters!' % (len(answerWord)))
 board = ['_'] * len(answerWord)
 
+# DEBUG
+print(answerWord)
+
 def turn():
     global mistakeCount
     global answerWord
     global board
     global missedChars
 
-    print(*board, sep=' ')
+    print('\n', *board, sep=' ')
     while mistakeCount > 0:
-        mistakeCount -= 1
-        if mistakeCount <= 3:
+        if '_' not in board:
+            print(*board, sep=' ')
+            print('\nYou won! The word was %s. Thanks for playing!' % (answerWord))
+            print('*' * 80)
+            exit(1)
+        elif mistakeCount <= 3:
             sleep(1)
             print('\n**Try to guess the word!**')
             print('**Type your guess here, or press \'Enter\' or \'Return\' to keep playing.')
@@ -66,12 +73,15 @@ def turn():
                 print('Missed Letters: ', end='')
                 print(*missedChars, sep=', ')
             elif guess != answerWord:
-                mistakeCount -= 1
+                if mistakeCount >= 2:
+                    mistakeCount -= 1
                 print('Nope! A turn has been revoked; you have %s mistake(s) remaining. Keep trying!' % (mistakeCount))
 
         while True:
-            char = input('\nPick a character: ')
-            if char.isalpha() == True:
+            char = input('\nPick a character: ').strip()
+            if char[0].upper() in missedChars:
+                print('You already guessed that letter! Pick again.')
+            elif char.isalpha() == True:
                 print('\n')
                 sleep(1)
                 break
@@ -96,13 +106,26 @@ def turn():
                 print('Missed Letters: ', end='')
                 print(*missedChars, sep=', ')
             elif (i+1) == len(answerWord):
+                mistakeCount -= 1
                 print('Sorry! That letter isn\'t in the word. You have %s mistake(s) left.' % (mistakeCount))
                 missedChars.append(char.upper())
                 print(*board, sep=' ')
                 print('Missed Letters: ', end='')
                 print(*missedChars, sep=', ')
     if mistakeCount <= 0:
-        print('You\'re out of turns! The word was %s. Thanks for playing!' % (answerWord))
+        print('You ran out of turns! You have one last chance to guess the word.\n')
+        print(*board, sep=' ')
+        print('Missed Letters: ', end='')
+        print(*missedChars, sep=', ')
+        guess = input('\nGuess: ')
+        if guess.strip().lower() == answerWord:
+            print('You won! The word was %s. Thanks for playing!' % (answerWord))
+            print('*' * 80)
+            exit(1)
+        else:
+            print('\nNope! The word was %s. Thanks for playing!' % (answerWord))
+            print('*' * 80)
+            exit(1)
 turn()
 
 """
