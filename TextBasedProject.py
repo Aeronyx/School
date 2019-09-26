@@ -4,6 +4,10 @@
 # End Date: 9/25/19
 # Desc: A classic hangman game! Complete with text-based board, turn counter, and missed letter tracker.
 #       The program allows for either a random word from a list, or a user-generated word for a friend to play.
+#       I thought it best to write out some pseudocode before starting on this project fully, and I spent both some
+#       class time and personal time making sure I understood how I would tackle the 'board' prior to starting.
+#       The game was also initially very difficult, so I changed from a turn-based counter to a mistake-based
+#       counter, not punishing the user for correct guesses.
 # Sources: https://www.hangmanwords.com/words for list of words
 # On my honor, I have neither given nor received unauthorized aid.
 
@@ -138,7 +142,7 @@ Sam: Just make it a different start or make it more clear that you are guessing 
 would be really cool if you had a huge bank of words to choose from for the computer's generated word.
 Also, make sure you have your name and comments in the code.
 
-- Added both of these features
+ - Added both of these features
 """
 
 """
