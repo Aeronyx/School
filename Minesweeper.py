@@ -25,9 +25,8 @@ def print_answer_board(board):
         print(*i[1:-1])
 
 def print_player_board(board):
-    for i in board[1:-1]:
-        playerBoard = ['៙' for i in solution]
-        print(*playerBoard[1:-1])
+    for i in playerBoard:
+        print(*i)
 
 # def create_player_board(board):
 #     for row in playerBoard:
@@ -40,19 +39,32 @@ def print_errorcheck(board):
 
 def turn():
     userInput = input('>>> ').split()
-    print(playerBoard[2])
-    print(playerBoard)
-    print(playerBoard[int(userInput[1])][int(userInput[0])])
+    x = int(userInput[0])
+    y = int(userInput[1])
     if len(userInput) == 2:
         # reveal
-        pass
+        print(solution[x][y])
+        print_errorcheck(solution)
+        if solution[x][y] == '*':
+            # end game
+            pass
+        elif solution[x][y] != 0:
+            playerBoard[x-1][y-1] = solution[x][y]
+        elif solution[x][y] == 0:
+            reveal_zero(x, y, solution)
+
     elif len(userInput) == 3:
         # flag
-        if playerBoard[int(userInput[1])][int(userInput[0])] == '៙':
-            playerBoard[int(userInput[1])][int(userInput[0])] == '⚐'
-        elif solution[int(userInput[1])][int(userInput[0])] == '⚐':
-            solution[int(userInput[1])][int(userInput[0])] == '៙'
+        if playerBoard[x-1][y-1] == '៙':
+            playerBoard[x-1][y-1] = '⚐'
+        elif playerBoard[x-1][y-1] == '⚐':
+            playerBoard[x-1][y-1] = '៙'
         
+def reveal_zero(x, y, board):
+    for r in range(y - 1, y + 2):
+        for c in range(x - 1, x + 2):
+            print(r, c)
+            playerBoard[r][c] = board[r][c]
 
 #---------------------
 # Main Code
@@ -60,13 +72,16 @@ def turn():
 
 height = int(sys.argv[1]) + 2
 width = int(sys.argv[2]) + 2
-mines = int(sys.argv[3]) 
+mines = int(sys.argv[3])
 
 solution = [[0]*width for i in range(height)]
+playerBoard = [['៙']*(width - 2) for i in range(height - 2)]
 
 add_mines(solution)
 print_answer_board(solution)
 print_player_board(solution)
 # print_errorcheck(solution)
 turn()
-print_player_board(solution)
+print_player_board(playerBoard)
+turn()
+print_player_board(playerBoard)
